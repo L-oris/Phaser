@@ -2,6 +2,9 @@
   "name": "phaser3-typescript",
   "version": "1.0.3",
   "description": "Phaser 3 for Typescript",
+  "engines": {
+    "yarn": ">=1.3.2"
+  },
   "scripts": {
     "dev": "webpack && webpack-dev-server --mode development",
     "prod": "webpack && webpack-dev-server --mode production"

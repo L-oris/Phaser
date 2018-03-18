@@ -10,19 +10,19 @@ const config: GameConfig = {
   type: Phaser.AUTO,
   parent: 'game',
   scene: {
-    MainScene
+    MainScene,
   },
-  physics: {
-    default: 'arcade',
-    arcade: {
-      gravity: { y: 200 }
-    }
-  }
+  // physics: {
+  //   default: 'arcade',
+  //   arcade: {
+  //     gravity: { y: 200 }
+  //   }
+  // }
 }
 
 // game class
 export class Game extends Phaser.Game {
-  constructor(GameConfig: config) {
+  constructor(_GameConfig: config) {
     super(config)
     this.scene.add('MainScene', MainScene, false)
     this.scene.start('MainScene')
