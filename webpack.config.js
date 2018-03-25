@@ -1,6 +1,7 @@
 var path = require('path')
 var webpack = require('webpack')
 
+// prettier-ignore
 module.exports = {
   entry: './src/game.ts',
   output: {
@@ -11,24 +12,20 @@ module.exports = {
     extensions: ['.ts', '.js'],
     alias: {
       pixi: path.join(__dirname, 'node_modules/phaser-ce/build/custom/pixi.js'),
-      phaser: path.join(
-        __dirname,
-        'node_modules/phaser-ce/build/custom/phaser-split.js'
-      ),
+      phaser: path.join(__dirname, 'node_modules/phaser-ce/build/custom/phaser-split.js'),
       p2: path.join(__dirname, 'node_modules/phaser-ce/build/custom/p2.js'),
-      assets: path.join(__dirname, 'assets/'),
+      assets: path.join(__dirname, 'public/assets/'),
     },
   },
   devServer: {
-    contentBase: path.resolve(__dirname, './'),
+    contentBase: __dirname,
     publicPath: '/public/build/',
-    host: '127.0.0.1',
+    host: 'localhost',
     port: 8080,
     open: true,
   },
   module: {
     rules: [
-      // { test: /\.ts$/, enforce: 'pre', loader: 'tslint-loader' },
       { test: /assets(\/|\\)/, loader: 'file-loader?name=assets/[hash].[ext]' },
       { test: /pixi\.js$/, loader: 'expose-loader?PIXI' },
       { test: /phaser-split\.js$/, loader: 'expose-loader?Phaser' },
