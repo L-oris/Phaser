@@ -1,5 +1,5 @@
 export class MainScene extends Phaser.State {
-  player: Phaser.Sprite
+  dude: Phaser.Sprite
   platforms: Phaser.Group
 
   preload(): void {
@@ -16,25 +16,34 @@ export class MainScene extends Phaser.State {
     this.platforms = this.add.group()
     this.platforms.enableBody = true
 
+    // ground
     const ground = this.platforms.create(0, this.world.height - 64, 'ground')
     ground.scale.setTo(2, 2)
     ground.body.immovable = true
 
+    // platforms
     this.platforms.create(400, 400, 'ground').body.immovable = true
     this.platforms.create(-150, 250, 'ground').body.immovable = true
 
-    this.player = this.add.sprite(32, this.world.height - 150, 'dude')
-    this.physics.arcade.enable(this.player)
-
-    this.player.body.bounce.y = 0.2
-    this.player.body.gravity.y = 300
-    this.player.body.collideWorldBounds = true
-
-    this.player.animations.add('left', [0, 1, 2, 3], 10, true)
-    this.player.animations.add('right', [5, 6, 7, 8], 10, true)
+    // dude
+    this.dude = this.createDude(this)
   }
 
   update(): void {
-    const hitPlatform = this.physics.arcade.collide(this.player, this.platforms)
+    const hitPlatform = this.physics.arcade.collide(this.dude, this.platforms)
+  }
+
+  private createDude(state: Phaser.State): Phaser.Sprite {
+    const player = this.add.sprite(32, this.world.height - 150, 'dude')
+    state.physics.arcade.enable(player)
+
+    player.body.bounce.y = 0.2
+    player.body.gravity.y = 300
+    player.body.collideWorldBounds = true
+
+    player.animations.add('left', [0, 1, 2, 3], 10, true)
+    player.animations.add('right', [5, 6, 7, 8], 10, true)
+
+    return player
   }
 }
