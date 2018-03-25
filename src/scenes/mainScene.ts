@@ -1,6 +1,7 @@
 export class MainScene extends Phaser.State {
   dude: Phaser.Sprite
   platforms: Phaser.Group
+  stars: Phaser.Group
   cursors: Phaser.CursorKeys
 
   preload(): void {
@@ -29,12 +30,22 @@ export class MainScene extends Phaser.State {
     // dude
     this.dude = this.createDude(this)
 
+    this.stars = this.add.group()
+    this.stars.enableBody = true
+    for (let i = 0; i <= 12; i++) {
+      const star = this.stars.create(i * 70, 0, 'star')
+      star.body.gravity.y = 40
+      star.body.bounce.y = 0.7 + Math.random() * 0.2
+    }
+
     // cursors
     this.cursors = this.input.keyboard.createCursorKeys()
   }
 
   update(): void {
     const hitPlatform = this.physics.arcade.collide(this.dude, this.platforms)
+    this.physics.arcade.collide(this.stars, this.platforms)
+    this.physics.arcade.overlap(this.dude, this.stars, this.collectStar)
 
     // move player
     this.dude.body.velocity.x = 0
@@ -67,5 +78,9 @@ export class MainScene extends Phaser.State {
     player.animations.add('right', [5, 6, 7, 8], 10, true)
 
     return player
+  }
+
+  private collectStar(_player: Phaser.Sprite, star: Phaser.Group): void {
+    star.kill()
   }
 }
