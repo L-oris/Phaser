@@ -3,6 +3,8 @@ export class MainScene extends Phaser.State {
   platforms: Phaser.Group
   stars: Phaser.Group
   cursors: Phaser.CursorKeys
+  scoreText: Phaser.Text
+  score = 0
 
   preload(): void {
     this.load.image('sky', 'public/assets/img/sky.png')
@@ -30,6 +32,7 @@ export class MainScene extends Phaser.State {
     // dude
     this.dude = this.createDude(this)
 
+    // stars
     this.stars = this.add.group()
     this.stars.enableBody = true
     for (let i = 0; i <= 12; i++) {
@@ -40,6 +43,12 @@ export class MainScene extends Phaser.State {
 
     // cursors
     this.cursors = this.input.keyboard.createCursorKeys()
+
+    // score
+    this.scoreText = this.add.text(16, 16, 'score: 0', {
+      fontSize: 32,
+      fill: '#000',
+    })
   }
 
   update(): void {
@@ -66,7 +75,7 @@ export class MainScene extends Phaser.State {
     }
   }
 
-  private createDude(state: Phaser.State): Phaser.Sprite {
+  private createDude = (state: Phaser.State): Phaser.Sprite => {
     const player = state.add.sprite(32, this.world.height - 150, 'dude')
     state.physics.arcade.enable(player)
 
@@ -80,7 +89,9 @@ export class MainScene extends Phaser.State {
     return player
   }
 
-  private collectStar(_player: Phaser.Sprite, star: Phaser.Group): void {
+  private collectStar = (_player: Phaser.Sprite, star: Phaser.Group): void => {
     star.kill()
+    this.score += 10
+    this.scoreText.text = `Score: ${this.score}`
   }
 }
