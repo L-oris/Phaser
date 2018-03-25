@@ -1,6 +1,7 @@
 export class MainScene extends Phaser.State {
   dude: Phaser.Sprite
   platforms: Phaser.Group
+  cursors: Phaser.CursorKeys
 
   preload(): void {
     this.load.image('sky', 'public/assets/img/sky.png')
@@ -27,14 +28,35 @@ export class MainScene extends Phaser.State {
 
     // dude
     this.dude = this.createDude(this)
+
+    // cursors
+    this.cursors = this.input.keyboard.createCursorKeys()
   }
 
   update(): void {
     const hitPlatform = this.physics.arcade.collide(this.dude, this.platforms)
+
+    // move player
+    this.dude.body.velocity.x = 0
+    if (this.cursors.left.isDown) {
+      this.dude.body.velocity.x = -150
+      this.dude.animations.play('left')
+    } else if (this.cursors.right.isDown) {
+      this.dude.body.velocity.x = 150
+      this.dude.animations.play('right')
+    } else {
+      this.dude.animations.stop()
+      this.dude.frame = 4
+    }
+
+    // jump
+    if (this.cursors.up.isDown && this.dude.body.touching.down && hitPlatform) {
+      this.dude.body.velocity.y = -350
+    }
   }
 
   private createDude(state: Phaser.State): Phaser.Sprite {
-    const player = this.add.sprite(32, this.world.height - 150, 'dude')
+    const player = state.add.sprite(32, this.world.height - 150, 'dude')
     state.physics.arcade.enable(player)
 
     player.body.bounce.y = 0.2
