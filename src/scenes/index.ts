@@ -1,1 +1,1 @@
-export * from './mainScene'
+export * from './MainScene'

@@ -4,12 +4,13 @@ import 'p2'
 import 'pixi'
 import 'phaser'
 import { MainScene } from './scenes'
+import { Player } from './characters'
 
 export class Game extends Phaser.Game {
   constructor() {
-    super(800, 600, Phaser.AUTO, 'game', MainScene)
-    // this.state.add('MainScene', MainScene)
-    // this.state.start('MainScene')
+    super(800, 600, Phaser.AUTO, 'game')
+    this.state.add('MainScene', MainScene)
+    this.state.start('MainScene')
   }
 }
 
