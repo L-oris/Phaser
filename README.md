@@ -1,14 +1,13 @@
-## Boilerplate for Phaser 3 in Typescript
+## Boilerplate for Phaser-CE in Typescript
 
-[Phaser](https://github.com/photonstorm/phaser) is a fast, free, and fun open source HTML5 game framework. 
+[Phaser](https://github.com/photonstorm/phaser) is a fast, free, and fun open source HTML5 game framework
 
-### What is it
-The game is created by following the official Phaser tutorial
+### What is this
+The game is created by following the official Phaser [tutorial](https://phaser.io/tutorials/making-your-first-phaser-2-game)
 
+I had some hard times, though,  combining Phaser with TypeScript, making it modular, readable,  and moreover maintaining all type definitions
 
-I had some hard times, though,  combining Phaser with TypeScript, making it modular, readable  and moreover maintaining all type definitions.
-
-I ended up with is my own revisitation of Phaser “components", basically moving away from JS classes, and making instead nicer use of Closures
+I ended up with is my own revisitation of Phaser “components", basically moving away from JS classes, and making instead a nicer use of closures
 
 #### Before
 ```
@@ -103,4 +102,3 @@ cd phaser-CE_boilerplate
 yarn && yarn dev
 ```
 The browser will automatically open on port 8080
-
