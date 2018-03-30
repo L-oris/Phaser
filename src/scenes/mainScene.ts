@@ -1,9 +1,9 @@
-import { Player, PlayerFactory } from '../characters'
+import { PlayerFactory, StarsFactory, Player, Stars } from '../characters'
 
 export class MainScene extends Phaser.State {
   player: Player
   platforms: Phaser.Group
-  stars: Phaser.Group
+  stars: Stars
   cursors: Phaser.CursorKeys
   scoreText: Phaser.Text
   score = 0
@@ -27,20 +27,17 @@ export class MainScene extends Phaser.State {
     ground.scale.setTo(2, 2)
     ground.body.immovable = true
 
-    // player
-    this.player = PlayerFactory(this)
-
     // platforms
     this.platforms.create(400, 400, 'ground').body.immovable = true
     this.platforms.create(-150, 250, 'ground').body.immovable = true
 
+    // player
+    this.player = PlayerFactory(this, 'player')
+
     // stars
-    this.stars = this.add.group()
-    this.stars.enableBody = true
+    this.stars = StarsFactory(this, 'star')
     for (let i = 0; i <= 12; i++) {
-      const star = this.stars.create(i * 70, 0, 'star')
-      star.body.gravity.y = 40
-      star.body.bounce.y = 0.7 + Math.random() * 0.2
+      this.stars.createBouncingStar(i * 70, 0)
     }
 
     // cursors

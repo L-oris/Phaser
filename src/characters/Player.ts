@@ -9,12 +9,8 @@ export interface Player extends Phaser.Sprite {
   jump: () => Player
 }
 
-export function PlayerFactory(state: Phaser.State): Player {
-  const player = state.add.sprite(
-    32,
-    state.world.height - 150,
-    'player'
-  ) as Player
+export function PlayerFactory(state: Phaser.State, image: string): Player {
+  const player = state.add.sprite(32, state.world.height - 150, image) as Player
 
   // settings
   state.physics.arcade.enable(player)
