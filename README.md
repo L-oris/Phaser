@@ -102,3 +102,5 @@ cd phaser-CE_boilerplate
 yarn && yarn dev
 ```
 The browser will automatically open on port 8080
+
+![](./Screen_Shot.png)
