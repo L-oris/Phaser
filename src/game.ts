@@ -4,7 +4,6 @@ import 'p2'
 import 'pixi'
 import 'phaser'
 import { MainScene } from './scenes'
-import { Player } from './characters'
 
 export class Game extends Phaser.Game {
   constructor() {
