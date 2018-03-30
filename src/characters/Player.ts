@@ -11,17 +11,17 @@ export interface Player extends Phaser.Sprite {
 
 export interface PlayerSettings {
   image: string
-  initialPositionX?: number
-  initialPositionY?: number
+  initialX?: number
+  initialY?: number
 }
 
 export function PlayerFactory(
   state: Phaser.State,
-  { image, initialPositionX, initialPositionY }: PlayerSettings
+  { image, initialX, initialY }: PlayerSettings
 ): Player {
   const player = state.add.sprite(
-    initialPositionX || 32,
-    initialPositionY || state.world.height - 150,
+    initialX || 32,
+    initialY || state.world.height - 150,
     image
   ) as Player
 

@@ -33,24 +33,24 @@ export class MainScene extends Phaser.State {
     this.platforms = PlatformsFactory(this, { image: 'ground' })
     // floor
     this.platforms.createPlatform({
-      positionX: 0,
-      positionY: this.world.height - 64,
+      x: 0,
+      y: this.world.height - 64,
       scale: 2,
     })
     // middle platform
     this.platforms.createPlatform({
-      positionX: 400,
-      positionY: 400,
+      x: 400,
+      y: 400,
     })
     // top platform
     this.platforms.createPlatform({
-      positionX: -150,
-      positionY: 250,
+      x: -150,
+      y: 250,
     })
 
     this.player = PlayerFactory(this, {
       image: 'player',
-      initialPositionX: 200,
+      initialX: 200,
     })
 
     this.stars = StarsFactory(this, { image: 'star' })

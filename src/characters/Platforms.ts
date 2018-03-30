@@ -8,8 +8,8 @@ export interface PlatformsSettings {
   image: string
 }
 export interface PlatformSettings {
-  positionX: number
-  positionY: number
+  x: number
+  y: number
   scale?: number
 }
 
@@ -21,12 +21,8 @@ export function PlatformsFactory(
   platforms.enableBody = true
 
   return _.merge(platforms, {
-    createPlatform({
-      positionX,
-      positionY,
-      scale,
-    }: PlatformSettings): Platforms {
-      const platform = platforms.create(positionX, positionY, image)
+    createPlatform({ x, y, scale }: PlatformSettings): Platforms {
+      const platform = platforms.create(x, y, image)
       platform.body.immovable = true
       platform.scale.setTo(scale || 1, scale || 1)
       return platforms
