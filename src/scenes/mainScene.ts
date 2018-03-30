@@ -1,11 +1,18 @@
-import { PlayerFactory, StarsFactory, Player, Stars } from '../characters'
+import {
+  PlayerFactory,
+  StarsFactory,
+  Player,
+  Stars,
+  ScoreTextFactory,
+  ScoreText,
+} from '../characters'
 
 export class MainScene extends Phaser.State {
   player: Player
   platforms: Phaser.Group
   stars: Stars
-  cursors: Phaser.CursorKeys
-  scoreText: Phaser.Text
+  cursorKeys: Phaser.CursorKeys
+  scoreText: ScoreText
   score = 0
 
   preload(): void {
@@ -22,32 +29,23 @@ export class MainScene extends Phaser.State {
     this.platforms = this.add.group()
     this.platforms.enableBody = true
 
-    // ground
     const ground = this.platforms.create(0, this.world.height - 64, 'ground')
     ground.scale.setTo(2, 2)
     ground.body.immovable = true
 
-    // platforms
     this.platforms.create(400, 400, 'ground').body.immovable = true
     this.platforms.create(-150, 250, 'ground').body.immovable = true
 
-    // player
     this.player = PlayerFactory(this, 'player')
 
-    // stars
     this.stars = StarsFactory(this, 'star')
     for (let i = 0; i <= 12; i++) {
       this.stars.createBouncingStar(i * 70, 0)
     }
 
-    // cursors
-    this.cursors = this.input.keyboard.createCursorKeys()
+    this.scoreText = ScoreTextFactory(this, 0)
 
-    // score
-    this.scoreText = this.add.text(16, 16, 'score: 0', {
-      fontSize: 32,
-      fill: '#000',
-    })
+    this.cursorKeys = this.input.keyboard.createCursorKeys()
   }
 
   update(): void {
@@ -56,22 +54,21 @@ export class MainScene extends Phaser.State {
     this.physics.arcade.overlap(this.player, this.stars, this.collectStar)
 
     this.player.setSpeedX(0)
-    if (this.cursors.left.isDown) {
+    if (this.cursorKeys.left.isDown) {
       this.player.turnLeft()
-    } else if (this.cursors.right.isDown) {
+    } else if (this.cursorKeys.right.isDown) {
       this.player.turnRight()
     } else {
       this.player.stop()
     }
 
-    if (this.cursors.up.isDown && hitPlatform) {
+    if (this.cursorKeys.up.isDown && hitPlatform) {
       const returned = this.player.jump()
     }
   }
 
-  private collectStar = (_player: Phaser.Sprite, star: Phaser.Group): void => {
-    star.kill()
-    this.score += 10
-    this.scoreText.text = `Score: ${this.score}`
+  private collectStar = (_player: Player, stars: Stars): void => {
+    stars.kill()
+    this.scoreText.incrementScore(10)
   }
 }
