@@ -3,13 +3,15 @@
 [Phaser](https://github.com/photonstorm/phaser) is a fast, free, and fun open source HTML5 game framework
 
 ### What is this
+
 The game is created by following the official Phaser [tutorial](https://phaser.io/tutorials/making-your-first-phaser-2-game)
 
-I had some hard times, though,  combining Phaser with TypeScript, making it modular, readable,  and moreover maintaining all type definitions
+I had some hard times, though, combining Phaser with TypeScript, making it modular, readable, and moreover maintaining all type definitions
 
 I ended up with is my own revisitation of Phaser “components", basically moving away from JS classes, and making instead a nicer use of closures
 
 #### Before
+
 ```
 export class PlayerClass {
   player: Player
@@ -50,10 +52,10 @@ export class PlayerClass {
     return this.player
   }
 }
-
 ```
 
 #### After
+
 ```
 import * as _ from 'lodash-es'
 
@@ -81,26 +83,26 @@ export function PlayerFactory(
     },
 
     turnLeft(): Player {
-      player.body.velocity.x = -150
       player.animations.play('left')
-      return player
+      return player.setSpeedX(-150)
     },
 
     turnRight(): Player {
-      player.body.velocity.x = 150
       player.animations.play('right')
-      return player
-    }
+      return player.setSpeedX(150)
+    },
   })
 }
 ```
 
 ### Clone, Install, Run
+
 ```
 git clone git@github.com:L-oris/phaser-CE_boilerplate.git
 cd phaser-CE_boilerplate
 yarn && yarn dev
 ```
+
 The browser will automatically open on port 8080
 
 ![](./Screen_Shot.png)

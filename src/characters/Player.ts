@@ -45,15 +45,13 @@ export function PlayerFactory(
     },
 
     turnLeft(): Player {
-      player.body.velocity.x = -150
       player.animations.play('left')
-      return player
+      return player.setSpeedX(-150)
     },
 
     turnRight(): Player {
-      player.body.velocity.x = 150
       player.animations.play('right')
-      return player
+      return player.setSpeedX(150)
     },
 
     stop(): Player {
@@ -64,7 +62,7 @@ export function PlayerFactory(
 
     jump(): Player {
       if (player.body.touching.down) {
-        player.body.velocity.y = -350
+        player.setSpeedY(-350)
       }
       return player
     },
