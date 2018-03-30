@@ -4,7 +4,14 @@ export interface Stars extends Phaser.Group {
   createBouncingStar: (positionX: number, positionY: number) => Stars
 }
 
-export function StarsFactory(state: Phaser.State, image: string): Stars {
+export interface StarsSettings {
+  image: string
+}
+
+export function StarsFactory(
+  state: Phaser.State,
+  { image }: StarsSettings
+): Stars {
   const stars = state.add.group() as Stars
   stars.enableBody = true
 

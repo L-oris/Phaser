@@ -4,14 +4,27 @@ export interface ScoreText extends Phaser.Text {
   incrementScore: (inc: number) => ScoreText
 }
 
+export interface ScoreTextSettings {
+  initialScore: number
+  positionX?: number
+  positionY?: number
+  fontSize?: number
+  color?: string
+}
+
 export function ScoreTextFactory(
   state: Phaser.State,
-  initialScore: number
+  { initialScore, positionX, positionY, fontSize, color }: ScoreTextSettings
 ): ScoreText {
-  const scoreText = state.add.text(16, 16, `Score: ${initialScore}`, {
-    fontSize: 32,
-    fill: '#000',
-  }) as ScoreText
+  const scoreText = state.add.text(
+    positionX || 16,
+    positionY || 16,
+    `Score: ${initialScore}`,
+    {
+      fontSize: fontSize || 32,
+      fill: color || '#000',
+    }
+  ) as ScoreText
 
   let actualScore = initialScore
   return _.merge(scoreText, {

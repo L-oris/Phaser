@@ -36,14 +36,17 @@ export class MainScene extends Phaser.State {
     this.platforms.create(400, 400, 'ground').body.immovable = true
     this.platforms.create(-150, 250, 'ground').body.immovable = true
 
-    this.player = PlayerFactory(this, 'player')
+    this.player = PlayerFactory(this, {
+      image: 'player',
+      initialPositionX: 200,
+    })
 
-    this.stars = StarsFactory(this, 'star')
+    this.stars = StarsFactory(this, { image: 'star' })
     for (let i = 0; i <= 12; i++) {
       this.stars.createBouncingStar(i * 70, 0)
     }
 
-    this.scoreText = ScoreTextFactory(this, 0)
+    this.scoreText = ScoreTextFactory(this, { initialScore: 0 })
 
     this.cursorKeys = this.input.keyboard.createCursorKeys()
   }
@@ -63,7 +66,7 @@ export class MainScene extends Phaser.State {
     }
 
     if (this.cursorKeys.up.isDown && hitPlatform) {
-      const returned = this.player.jump()
+      this.player.jump()
     }
   }
 

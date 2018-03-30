@@ -9,10 +9,22 @@ export interface Player extends Phaser.Sprite {
   jump: () => Player
 }
 
-export function PlayerFactory(state: Phaser.State, image: string): Player {
-  const player = state.add.sprite(32, state.world.height - 150, image) as Player
+export interface PlayerSettings {
+  image: string
+  initialPositionX?: number
+  initialPositionY?: number
+}
 
-  // settings
+export function PlayerFactory(
+  state: Phaser.State,
+  { image, initialPositionX, initialPositionY }: PlayerSettings
+): Player {
+  const player = state.add.sprite(
+    initialPositionX || 32,
+    initialPositionY || state.world.height - 150,
+    image
+  ) as Player
+
   state.physics.arcade.enable(player)
   player.body.bounce.y = 0.2
   player.body.gravity.y = 300
@@ -53,7 +65,6 @@ export function PlayerFactory(state: Phaser.State, image: string): Player {
     jump(): Player {
       if (player.body.touching.down) {
         player.body.velocity.y = -350
-        console.log(player)
       }
       return player
     },
