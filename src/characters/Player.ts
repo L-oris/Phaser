@@ -71,60 +71,64 @@ export function PlayerFactory(
   })
 }
 
-export class PlayerClass {
-  player: Player
-  constructor(private state: Phaser.State) {}
+/*
+  OLD PLAYER CLASS
+*/
 
-  create(): Phaser.Sprite {
-    this.player = this.state.add.sprite(
-      32,
-      this.state.world.height - 150,
-      'dude'
-    ) as Player
-    this.state.physics.arcade.enable(this.player)
+// export class PlayerClass {
+//   player: Player
+//   constructor(private state: Phaser.State) {}
 
-    this.player.body.bounce.y = 0.2
-    this.player.body.gravity.y = 300
-    this.player.body.collideWorldBounds = true
+//   create(): Phaser.Sprite {
+//     this.player = this.state.add.sprite(
+//       32,
+//       this.state.world.height - 150,
+//       'dude'
+//     ) as Player
+//     this.state.physics.arcade.enable(this.player)
 
-    this.player.animations.add('left', [0, 1, 2, 3], 10, true)
-    this.player.animations.add('right', [5, 6, 7, 8], 10, true)
+//     this.player.body.bounce.y = 0.2
+//     this.player.body.gravity.y = 300
+//     this.player.body.collideWorldBounds = true
 
-    return this.player
-  }
+//     this.player.animations.add('left', [0, 1, 2, 3], 10, true)
+//     this.player.animations.add('right', [5, 6, 7, 8], 10, true)
 
-  setSpeedX(speed: number): Player {
-    this.player.body.velocity.x = speed
-    return this.player
-  }
+//     return this.player
+//   }
 
-  setSpeedY(speed: number): Player {
-    this.player.body.velocity.y = speed
-    return this.player
-  }
+//   setSpeedX(speed: number): Player {
+//     this.player.body.velocity.x = speed
+//     return this.player
+//   }
 
-  turnLeft(): Player {
-    this.setSpeedX(-150)
-    this.player.animations.play('left')
-    return this.player
-  }
+//   setSpeedY(speed: number): Player {
+//     this.player.body.velocity.y = speed
+//     return this.player
+//   }
 
-  turnRight(): Player {
-    this.setSpeedX(150)
-    this.player.animations.play('right')
-    return this.player
-  }
+//   turnLeft(): Player {
+//     this.setSpeedX(-150)
+//     this.player.animations.play('left')
+//     return this.player
+//   }
 
-  stop(): Player {
-    this.player.animations.stop()
-    this.player.frame = 4
-    return this.player
-  }
+//   turnRight(): Player {
+//     this.setSpeedX(150)
+//     this.player.animations.play('right')
+//     return this.player
+//   }
 
-  jump(): Player {
-    if (this.player.body.touching.down) {
-      this.setSpeedY(-350)
-    }
-    return this.player
-  }
-}
+//   stop(): Player {
+//     this.player.animations.stop()
+//     this.player.frame = 4
+//     return this.player
+//   }
+
+//   jump(): Player {
+//     if (this.player.body.touching.down) {
+//       this.setSpeedY(-350)
+//     }
+//     return this.player
+//   }
+// }
